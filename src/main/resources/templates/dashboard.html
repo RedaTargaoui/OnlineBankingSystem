@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/Dashboard/DashboardStyle.css"/>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Online Banking System</h1>
+        <div class="header-buttons">
+            <button onclick="window.location.href='/Profile'">Profile</button>
+            <button onclick="window.location.href='/Logout'">Log Out</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <!-- Balance Panel -->
+        <div class="balance-panel">
+            <h2>Account Balance</h2>
+            <p class="balance" th:if="${account != null}" th:text="${account.balance} + '$'"></p>
+            <div class="action-buttons">
+                <button onclick="openModal('depositModal')">Deposit</button>
+                <button onclick="openModal('withdrawModal')">Withdraw</button>
+                <button onclick="openModal('transferModal')">Transfer</button>
+            </div>
+        </div>
+
+        <!-- Transaction History Panel -->
+        <div class="transaction-panel">
+            <h2>Transaction History</h2>
+            <table id="transactionTable">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Issuer</th>
+                    <th>Recipient</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="transaction : ${transactions}">
+                    <td th:text="${transaction.date}"></td>
+                    <td th:text="${transaction.transactionType}"></td>
+                    <td th:text="${transaction.amount}"></td>
+                    <td th:text="${transaction.issuerAccount.client.fullName}"></td>
+                    <td th:text="${transaction.recipientAccount != null ? transaction.recipientAccount.client.fullName : 'N/A'}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Deposit Modal -->
+    <div id="depositModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('depositModal')">&times;</span>
+            <h3>Deposit Funds</h3>
+            <form id="depositForm">
+                <div class="input-group">
+                    <label for="depositAmount">Amount:</label>
+                    <input type="number" id="depositAmount" name="depositAmount" placeholder="Enter the amount">
+                </div>
+                <button type="submit">Deposit</button>
+                <div class="error-message" id="depositErrorMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div id="withdrawModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('withdrawModal')">&times;</span>
+            <h3>Withdraw Funds</h3>
+            <form id="withdrawForm">
+                <div class="input-group">
+                    <label for="withdrawAmount">Amount:</label>
+                    <input type="number" id="withdrawAmount" name="withdrawAmount" placeholder="Enter the amount">
+                </div>
+                <button type="submit">Withdraw</button>
+                <div class="error-message" id="withdrawErrorMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Transfer Modal -->
+    <div id="transferModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('transferModal')">&times;</span>
+            <h3>Transfer Funds</h3>
+            <form id="transferForm">
+                <div class="input-group">
+                    <label for="transferAmount">Amount:</label>
+                    <input type="number" id="transferAmount" name="transferAmount" placeholder="Enter the amount">
+                </div>
+                <div class="input-group">
+                    <label for="recipientAccount">Full name of the recipient:</label>
+                    <input type="text" id="recipientAccount" name="recipientAccount" placeholder="Enter the full name of the recipient">
+                </div>
+                <button type="submit">Transfer</button>
+                <div class="error-message" id="transferErrorMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/Dashboard/DashboardScript.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/Login/LoginStyle.css"/>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Bank Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="fullName">Full name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter password">
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <div class="error-message" id="errorMessage"></div>
+        </form>
+    </div>
+
+    <script src="/Login/LoginScript.js"></script>
+</body>
+</html>

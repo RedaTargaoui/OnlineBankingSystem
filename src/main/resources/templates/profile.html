@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="/Profile/ProfileStyle.css"/>
+</head>
+
+<body>
+<div class="header">
+  <h1>Online Banking System</h1>
+  <div class="header-buttons">
+    <button onclick="window.location.href='/Dashboard/'">Dashboard</button>
+    <button onclick="window.location.href='/Logout'">Log Out</button>
+  </div>
+</div>
+
+<div class="content">
+  <!-- Profile Panel -->
+  <div class="profile-panel">
+    <h2>Account Balance</h2>
+    <p><b>Full name : </b><span class="clientData" th:if="${client != null}" th:text="${client.fullName}"></span></p>
+    <p><b>Password : </b><span class="clientData" th:if="${client != null}" th:text="${client.password}"></span></p>
+    <div class="action-buttons">
+      <button onclick="openModal('passwordModal')">Change password</button>
+    </div>
+  </div>
+
+  <!-- Account Panel -->
+  <div class="account-panel">
+    <h2>Account info</h2>
+    <p><b>Account ID: </b><span class="clientData" th:if="${account != null}" th:text="${account.accountID}"></span></p>
+    <p><b>Current balance : </b><span class="clientData" th:if="${account != null}" th:text="${account.balance}"></span></p>
+    <p><b>Creation date : </b><span class="clientData" th:if="${account != null}" th:text="${account.creationDate}"></span></p>
+  </div>
+</div>
+
+<!-- Password Modal -->
+<div id="passwordModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('passwordModal')">&times;</span>
+    <h3>Change password</h3>
+    <form id="passwordForm">
+      <div class="input-group">
+        <label for="newPassword">Enter new password :</label>
+        <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password">
+      </div>
+      <div class="input-group">
+        <label for="cfNewPassword">Confirm new password :</label>
+        <input type="password" id="cfNewPassword" name="cfNewPassword" placeholder="Confirm new password">
+      </div>
+      <button type="submit">Change password</button>
+      <div class="error-message" id="error-message"></div>
+    </form>
+  </div>
+</div>
+
+<script src="/Profile/ProfileScript.js"></script>
+
+</body>
+</html>
